@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Gestor de Tarefas Inteligente</title>
+    <link rel="icon" href="image/icon.jpg" type="image/icon">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <!-- LOGIN -->
+    <section id="loginSection" class="login-section">
+
+        <div class="login-card">
+
+            <div class="app-logo">✓</div>
+
+            <p class="subtitle">BEM-VINDO DE VOLTA</p>
+
+            <h1>Organiza o teu dia.</h1>
+
+            <p class="description">
+                Gere as tuas tarefas e acompanha o teu progresso.
+            </p>
+
+            <form id="loginForm">
+    <label for="username">Nome de utilizador</label>
+
+    <input
+        type="text"
+        id="username"
+        placeholder="Escreve o teu nome"
+        maxlength="30"
+        autocomplete="username"
+        required
+    >
+
+    <button type="submit" class="main-button">
+        Entrar na aplicação →
+    </button>
+
+    <p id="loginMessage" role="status" aria-live="polite"></p>
+</form>
+
+        </div>
+
+    </section>
+
+
+    <!-- APLICAÇÃO -->
+    <section id="appSection" hidden>
+
+        <!-- CABEÇALHO -->
+        <header class="topbar">
+
+            <div class="brand">
+                <span class="brand-icon">✓</span>
+                <span>iGESTAR</span>
+            </div>
+
+            <div class="topbar-actions">
+
+                <span id="currentDate"></span>
+
+                <button type="button" id="themeBtn" class="theme-button">
+                    🌙 Modo escuro
+                </button>
+
+                <button type="button" id="logoutBtn" class="logout-button">
+                    Sair
+                </button>
+
+            </div>
+
+        </header>
+
+
+        <!-- CONTEÚDO PRINCIPAL -->
+        <main class="dashboard">
+
+            <!-- INTRODUÇÃO -->
+            <section class="welcome-section">
+
+                <div>
+                    <p class="subtitle">O TEU ESPAÇO DE ORGANIZAÇÃO</p>
+
+                    <h1 id="welcomeMessage">Olá!</h1>
+
+                    <p class="description">
+                        Um pequeno passo de cada vez. Vamos organizar o teu dia?
+                    </p>
+                </div>
+
+                <div class="date-card">
+
+                    <span class="date-icon">◷</span>
+
+                    <span class="date-label">HORA ATUAL</span>
+
+                    <strong id="currentTime">00:00:00</strong>
+
+                </div>
+
+            </section>
+
+
+            <!-- CONTADORES -->
+            <section class="stats-grid">
+
+                <article class="stat-card">
+
+                    <div class="stat-icon purple-icon">☷</div>
+
+                    <div>
+                        <p>Tarefas ativas</p>
+                        <strong id="activeCount">0</strong>
+                    </div>
+
+                </article>
+
+                <article class="stat-card">
+
+                    <div class="stat-icon green-icon">✓</div>
+
+                    <div>
+                        <p>Tarefas concluídas</p>
+                        <strong id="completedCount">0</strong>
+                    </div>
+
+                </article>
+
+            </section>
+
+
+            <!-- ÁREA DAS TAREFAS -->
+            <section class="tasks-layout">
+
+                <!-- FORMULÁRIO -->
+                <article class="panel task-form-panel">
+
+                    <div class="panel-heading">
+
+                        <div>
+                            <p class="subtitle">PLANEAMENTO</p>
+                            <h2 id="formHeading">Nova tarefa</h2>
+                        </div>
+
+                        <span class="heading-icon">＋</span>
+
+                    </div>
+
+                    <form id="taskForm">
+
+                        <label for="taskTitle">Nome da tarefa</label>
+
+                        <input
+                            type="text"
+                            id="taskTitle"
+                            placeholder="Ex.: Estudar JavaScript"
+                            required
+                        >
+
+<div class="form-group">
+    <label for="taskDate">Data da tarefa</label>
+    <input type="date" id="taskDate">
+</div>
+
+                        <label for="taskDescription">Descrição</label>
+
+                        <textarea
+                            id="taskDescription"
+                            placeholder="Adiciona alguns detalhes..."
+                            rows="4"
+                        ></textarea>
+
+                        <button
+                            type="submit"
+                            id="saveTaskBtn"
+                            class="main-button"
+                        >
+                            Criar tarefa
+                            <span>→</span>
+                        </button>
+
+                        <button
+                            type="button"
+                            id="cancelEditBtn"
+                            class="secondary-button"
+                            hidden
+                        >
+                            Cancelar edição
+                        </button>
+
+                    </form>
+
+                </article>
+
+
+                <!-- LISTA DE TAREFAS -->
+                <article class="panel tasks-panel">
+
+                    <div class="panel-heading">
+
+                        
+
+                        <div>
+                            <p class="subtitle">A TUA LISTA</p>
+                            <h2>As minhas tarefas</h2>
+                        </div>
+
+                        <span class="heading-icon">☷</span>
+
+                    </div>
+
+                    <!-- FILTROS -->
+                    <div id="filters" class="filters">
+
+                        <button type="button" data-filter="all" class="active-filter">
+                            Todas
+                        </button>
+
+                        <button type="button" data-filter="active">
+                            Ativas
+                        </button>
+
+                        <button type="button" data-filter="completed">
+                            Concluídas
+                        </button>
+
+                    </div>
+
+                    <!-- TAREFAS CRIADAS PELO JAVASCRIPT -->
+                    <ul id="taskList"></ul>
+
+                    <p id="emptyMessage" class="empty-message">
+                        Ainda não tens tarefas. Cria a tua primeira tarefa!
+                    </p>
+
+                </article>
+
+            </section>
+
+
+            <!-- FERIADOS -->
+            <section class="panel holidays-panel" id="holidaysSection">
+
+                <div class="panel-heading">
+
+                    <div>
+                        <p class="subtitle">PLANEIA COM ANTECEDÊNCIA</p>
+                        <h2>Feriados em Portugal</h2>
+                    </div>
+
+                    <span class="heading-icon">▦</span>
+
+                </div>
+
+                <p class="description">
+                    Consulta os próximos feriados e organiza melhor o teu tempo.
+                </p>
+
+                <button type="button" id="holidaysBtn" class="main-button">
+                    Consultar feriados
+                    <span>→</span>
+                </button>
+
+                <p id="holidaysMessage">
+                    Clica no botão para consultar os próximos feriados.
+                </p>
+
+                <ul id="holidaysList"></ul>
+
+            </section>
+
+
+            <!-- RODAPÉ -->
+            <footer class="footer">
+
+                <span class="brand">
+                    <span class="brand-icon">✓</span>
+                    iGESTAR
+                </span>
+
+                <p>Organiza o presente. Conquista os teus objetivos.</p>
+
+            </footer>
+
+        </main>
+
+    </section>
+
+    <script src="js/script.js"></script>
+
+</body>
+</html>
